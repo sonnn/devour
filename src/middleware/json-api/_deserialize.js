@@ -74,6 +74,11 @@ function resource (item, included, useCache = false) {
         attachRelationsFor.call(this, model, relConfig, item, included, rel)
     }
   })
+  
+  // apply compute value
+  if (model.options.compute && _.isFunction(model.options.compute)) {
+    _.assignIn(deserializedModel, model.options.compute(deserializedModel))
+  }
 
   var params = ['meta', 'links']
   params.forEach(function (param) {
