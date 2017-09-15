@@ -76,8 +76,11 @@ function resource (item, included, useCache = false) {
   })
   
   // apply compute value
-  if (model.options.compute && _.isFunction(model.options.compute)) {
-    _.assignIn(deserializedModel, model.options.compute(deserializedModel))
+  if (_.isFunction(model.options.compute)) {
+    const result = model.options.compute(deserializedModel) || {}
+    if (!_.isEmpty(result)) {
+      _.assignIn(deserializedModel, result)
+    }
   }
 
   var params = ['meta', 'links']
