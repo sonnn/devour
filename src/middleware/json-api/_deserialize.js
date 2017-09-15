@@ -140,6 +140,11 @@ function isRelationship (attribute) {
  */
 function relatedItemsFor (model, attribute, item, included, key) {
   let relationMap = _.get(item.relationships, [key, 'data'], false)
+
+  if (!relationMap) {
+    relationMap = _.get(item.relationships, [_.kebabCase(key), 'data'], false)
+  }
+
   if (!relationMap) {
     return []
   }
