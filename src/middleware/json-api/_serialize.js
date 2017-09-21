@@ -22,7 +22,7 @@ function resource (modelName, item) {
       return
     }
     if (isRelationship(value)) {
-      serializeRelationship(key, item[key], value, serializedRelationships)
+      serializeRelationship(_.kebabCase(key), item[key], value, serializedRelationships)
     } else {
       serializedAttributes[key] = item[key]
     }
